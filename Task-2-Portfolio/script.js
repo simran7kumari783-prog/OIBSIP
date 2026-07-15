@@ -1,116 +1,35 @@
-// ===========================
-// Mobile Menu
-// ===========================
+// Basic script file for portfolio actions
+document.addEventListener('DOMContentLoaded', () => {
+    const topBtn = document.getElementById('topBtn');
+    
+    // Show/hide scroll to top button
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            topBtn.style.display = 'flex';
+        } else {
+            topBtn.style.display = 'none';
+        }
+    });
 
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
+    // Scroll to top functionality
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 
-menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("show");
-});
-
-// ===========================
-// Dark Mode
-// ===========================
-
-const themeBtn = document.getElementById("theme-toggle");
-
-themeBtn.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-    if(document.body.classList.contains("dark")){
-        themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-    else{
-        themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-    }
-
-});
-
-// ===========================
-// Typing Animation
-// ===========================
-
-const words = [
-    "Software Developer",
-    "Java Developer",
-    "Frontend Developer",
-    "Problem Solver"
-];
-
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-
-const typing = document.querySelector(".typing");
-
-function type(){
-
-    const currentWord = words[wordIndex];
-
-    if(isDeleting){
-        typing.textContent = currentWord.substring(0,charIndex--);
-    }
-    else{
-        typing.textContent = currentWord.substring(0,charIndex++);
-    }
-
-    let speed = isDeleting ? 60 : 120;
-
-    if(!isDeleting && charIndex === currentWord.length + 1){
-        isDeleting = true;
-        speed = 1200;
-    }
-
-    if(isDeleting && charIndex === 0){
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-    }
-
-    setTimeout(type,speed);
-}
-
-type();
-
-// ===========================
-// Sticky Navbar
-// ===========================
-
-window.addEventListener("scroll",()=>{
-
-    const header = document.querySelector("header");
-
-    header.classList.toggle("sticky",window.scrollY>50);
-
-});
-// ===========================
-// Scroll To Top
-// ===========================
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll",()=>{
-
-if(window.scrollY>300){
-
-topBtn.style.display="block";
-
-}else{
-
-topBtn.style.display="none";
-
-}
-
-});
-
-topBtn.addEventListener("click",()=>{
-
-window.scrollTo({
-
-top:0,
-behavior:"smooth"
-
-});
-
+    // Simple Theme Toggle Logics
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const icon = themeToggle.querySelector('i');
+        if (icon.classList.contains('fa-moon')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            // Add any custom light mode changes if needed
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
 });
